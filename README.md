@@ -1,7 +1,6 @@
 # Jelastic Ametys Add-on
 
 This repository provides [Ametys](http://www.ametys.org/) add-on for Jelastic Platform.
-[![GET IT HOSTED](https://raw.githubusercontent.com/JelasticJPS/Ametys/master/images/getithosted.png)](http://go.jelastic.com/test?hoster-select=1&theme=modern&app=https://raw.githubusercontent.com/JelasticJPS/Ametys/master/Ametys-3.7.3.json)
 
 **Ametys** is a free and open source professional web content management system (WCMS).
 
