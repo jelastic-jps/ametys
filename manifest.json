@@ -9,7 +9,7 @@
 		"categories": ["apps/cms", "apps/content-management"],
 		"startPage": "cms/",
 		"homepage": "http://www.ametys.org/",
-		"logo": "https://raw.githubusercontent.com/JelasticJPS/Ametys/master/images/ametys.png",
+		"logo": "https://raw.githubusercontent.com/jelastic-jps/Ametys/master/images/ametys.png",
 		"description": {
 			"text": "Ametys is a free and open source professional web content management system (WCMS), which combines content richness with a user-friendly interf"
 		},
@@ -33,7 +33,7 @@
 			},
 			"deployments": [{
 					"context": "cms",
-					"archive": "https://media.githubusercontent.com/media/JelasticJPS/Ametys/master/dumps/models.zip",
+					"archive": "https://media.githubusercontent.com/media/jelastic-jps/Ametys/master/dumps/models.zip",
 					"name": "ametys-3.7.3.zip"
 				}
 			],
@@ -41,13 +41,13 @@
 					"restart ": true,
 					"nodeType": "tomcat7",
 					"destPath": "/opt/tomcat/lib/mysql-connector-java-5.1.35-bin.jar",
-					"sourcePath": "https://raw.githubusercontent.com/JelasticJPS/Ametys/master/libs/mysql-connector-java-5.1.35-bin.jar"
+					"sourcePath": "https://raw.githubusercontent.com/jelastic-jps/Ametys/master/libs/mysql-connector-java-5.1.35-bin.jar"
 				}
 			],
 			"configs": [{
 					"nodeType": "mysql5",
 					"database": {
-						"dump": "https://raw.githubusercontent.com/JelasticJPS/Ametys/master/dumps/ametys.sql",
+						"dump": "https://raw.githubusercontent.com/jelastic-jps/Ametys/master/dumps/ametys.sql",
 						"name": "ametys",
 						"user": "ametys"
 					}
