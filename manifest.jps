@@ -1,88 +1,65 @@
-{
-	"jpsType": "install",
-	"jpsVersion": "0.2",
-	"application": {
-		"id": "ametys",
-		"name": "Ametys",
-		"version": "3.7.3",
-		"type": "java",
-		"categories": ["apps/cms", "apps/content-management"],
-		"startPage": "cms/",
-		"homepage": "http://www.ametys.org/",
-		"logo": "https://raw.githubusercontent.com/jelastic-jps/ametys/master/images/ametys.png",
-		"description": {
-			"text": "Ametys is a free and open source professional web content management system (WCMS), which combines content richness with a user-friendly interf"
-		},
-		"env": {
-			"topology": {
-				"engine": "java7",
-				"nodes": [{
-						"extip": false,
-						"count": 1,
-						"cloudlets": 8,
-						"nodeType": "tomcat7"
-					}, {
-						"extip": false,
-						"count": 1,
-						"cloudlets": 8,
-						"nodeType": "mysql5"
-					}
-				],
-				"ssl": false,
-				"ha": false
-			},
-			"deployments": [{
-					"context": "cms",
-					"archive": "https://media.githubusercontent.com/media/jelastic-jps/ametys/master/dumps/models.zip",
-					"name": "ametys-3.7.3.zip"
-				}
-			],
-			"upload": [{
-					"restart ": true,
-					"nodeType": "tomcat7",
-					"destPath": "/opt/tomcat/lib/mysql-connector-java-5.1.35-bin.jar",
-					"sourcePath": "https://raw.githubusercontent.com/jelastic-jps/ametys/master/libs/mysql-connector-java-5.1.35-bin.jar"
-				}
-			],
-			"configs": [{
-					"nodeType": "mysql5",
-					"database": {
-						"dump": "https://raw.githubusercontent.com/jelastic-jps/ametys/master/dumps/ametys.sql",
-						"name": "ametys",
-						"user": "ametys"
-					}
-				}, {
-					"nodeType": "tomcat7",
-					"path": "/opt/tomcat/webapps/cms/WEB-INF/config/config.xml",
-					"replacements": [{
-							"replacement": "${nodes.mysql5.address}",
-							"pattern": "{DB_HOST}"
-						}, {
-							"replacement": "${nodes.mysql5.database.name}",
-							"pattern": "{DB_NAME}"
-						}, {
-							"replacement": "${nodes.mysql5.database.user}",
-							"pattern": "{DB_USER}"
-						}, {
-							"replacement": "${nodes.mysql5.database.password}",
-							"pattern": "{DB_PASSWORD}"
-						}, {
-							"replacement": "${env.domain}",
-							"pattern": "{ENV_DOMAIN}"
-						}, {
-							"replacement": "${env.url}",
-							"pattern": "{ENV_URL}"
-						}
-					]
-				}, {
-					"restart": true,
-					"nodeType": "tomcat7"
-				}
-			]
-		},
-		"success": {
-			"text": "Below you will find your admin panel link, username and password.</br></br> <table style='font-size:13px; border: none;'><tr><td>Admin panel URL:</td><td style='padding-left: 10px;'><a href='${env.protocol}://${env.domain}/cms/_admin/' target='_blank'>${env.protocol}://${env.domain}/cms/_admin/</a></td></tr>  <tr><td>Admin name:</td><td style='padding-left: 10px;'>admin</td></tr><tr><td>Password:</td><td style='padding-left: 10px;'>admin</td></tr></table></br>To add custom domain name for your Ametys installation follow the steps described in our <a href='http://docs.jelastic.com/custom-domains' target='_blank'>documentation</a>",
-			"email": "Below you will find your admin panel link, username and password.</br></br> <table style='font-size:13px; border: none;'><tr><td>Admin panel URL:</td><td style='padding-left: 10px;'><a href='${env.protocol}://${env.domain}/cms/_admin/' target='_blank'>${env.protocol}://${env.domain}/cms/_admin/</a></td></tr>  <tr><td>Admin name:</td><td style='padding-left: 10px;'>admin</td></tr><tr><td>Password:</td><td style='padding-left: 10px;'>admin</td></tr></table></br>To add custom domain name for your Ametys installation follow the steps described in our <a href='http://docs.jelastic.com/custom-domains' target='_blank'>documentation</a>"
-		}
-	}
-}
+type: install
+id: ametys
+name: Ametys
+
+categories:
+  - apps/cms
+  - apps/content-management
+  
+baseUrl: https://raw.githubusercontent.com/jelastic-jps/ametys/master/
+
+startPage: cms/
+homepage: 'http://www.ametys.org/'
+logo: https://download.jelastic.com/public.php?service=files&t=36a02d917524263e69279707aa6fa127&download
+description: Ametys is a free and open source professional web content management system (WCMS), which combines content richness with a user-friendly interface
+
+globals:
+  DB_ADMIN_PASS: '${fn.password}'
+
+engine: java11
+nodes:
+  - cloudlets: 10
+    nodeType: tomcat9
+  - cloudlets: 8
+    nodeType: mysql8
+    
+onInstall:
+  - deployApp
+  - replaceConfigs
+  - dbActions
+  - restartNodes [cp]
+
+actions:
+  deployApp:
+    deploy:
+      context: ROOT
+      archive: https://download:2021S1@releases.ametys.org/releases/org.ametys.templates/demo/4.3.x/4.3.11/zips/ametys-demo-4.3.11.zip
+      name: ametys-4.3.11.zip
+  dbActions:
+    - prepareSqlDatabase:
+        nodeGroup: sqldb
+        loginCredentials:
+          user: root
+          password: '${nodes.sqldb.password}'
+        newDatabaseName: ametys
+        newDatabaseUser:
+          name: ametys
+          password: '${globals.DB_ADMIN_PASS}'
+          
+  replaceConfigs:
+    cmd [cp]: |-
+      ROOT="/opt/tomcat/webapps/ROOT/"
+      CONFIG_PATH="${ROOT}/WEB-INF/config"
+      
+      mv ${ROOT}/cms/* ${ROOT}
+      curl -fsSL "${baseUrl}configs/config.xml" -o ${CONFIG_PATH}/config.xml
+      sed -i 's|<cms.url>http://.*:8080</cms.url>|<cms.url>http://${env.url}:8080</cms.url>|g' ${CONFIG_PATH}/config.xml
+      curl -fsSL "${baseUrl}configs/datasources-sql.xml" -o ${CONFIG_PATH}/datasources-sql.xml
+      sed -i 's|{DB_HOST}|${nodes.sqldb.address}|g' ${CONFIG_PATH}/datasources-sql.xml
+      
+success: |-
+  Below you will find your admin panel link, username and password.  
+  Admin panel URL: [${env.protocol}://${env.domain}/cms/_admin/](${env.protocol}://${env.domain}/cms/_admin/)
+  Admin name: admin  
+  Password: admin  
+  To add custom domain name for your Ametys installation follow the steps described in our [documentation](http://docs.jelastic.com/custom-domains)
