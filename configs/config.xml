@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><config>
+  <!--+
+      | plugin.cms:PLUGINS_CMS_CONFIG_CATEGORY_REPORTS
+      +-->
+
+  <!-- plugin.cms:PLUGINS_CMS_CONFIG_CATEGORY_REPORTS_GROUP -->
+  <org.ametys.plugin.cms.delete.reports.period>20</org.ametys.plugin.cms.delete.reports.period>
+  <org.ametys.plugin.cms.delete.reports.longevity>30</org.ametys.plugin.cms.delete.reports.longevity>
+
+  <!--+
+      | plugin.web:PLUGINS_WEB_CONFIG_CACHE_MONITORING_CATEGORY
+      +-->
+
+  <!-- plugin.web:PLUGINS_WEB_CONFIG_CACHE_MONITORING_GROUP -->
+  <cache.monitoring.datasource.jdbc.pool>SQL-default-datasource</cache.monitoring.datasource.jdbc.pool>
+  <cache.monitoring.schedulers.enable>false</cache.monitoring.schedulers.enable>
+
+  <!--+
+      | plugin.syndication:PLUGINS_SYNDICATION_CATEGORY
+      +-->
+
+  <!-- plugin.syndication:PLUGINS_SYNDICATION_GROUP -->
+  <syndication.timeout>2000</syndication.timeout>
+
+  <!--+
+      | plugin.repository:PLUGINS_REPOSITORY_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.cms:PLUGINS_CMS_PURGE_CONTENTS_CONFIG_GROUP -->
+  <purge.scheduler.period>7</purge.scheduler.period>
+  <purge.scheduler.enabled>false</purge.scheduler.enabled>
+  <purge.before.days>60</purge.before.days>
+  <purge.keep.validated.versions>3</purge.keep.validated.versions>
+  <purge.scheduler.hour>02:00</purge.scheduler.hour>
+  <!-- plugin.repository:PLUGINS_REPOSITORY_CONFIG_UNLOCKTIMER -->
+  <content.unlocktimer.activate>true</content.unlocktimer.activate>
+  <content.unlocktimer.period>2</content.unlocktimer.period>
+  <!-- plugin.cms:PLUGINS_CMS_CONFIG_CONTENT_COMMENTS_GROUP -->
+  <cms.contents.comments.postvalidation>true</cms.contents.comments.postvalidation>
+  <!-- plugin.cms:PLUGINS_CMS_AUTOMATIC_SAVE_CONFIG_GROUP -->
+  <automatic.save.enabled>true</automatic.save.enabled>
+  <automatic.save.frequency>15</automatic.save.frequency>
+  <!-- plugin.cms:CONTENT_ALERTS_CONFIG_GROUP -->
+  <remind.before.publication.end>7</remind.before.publication.end>
+  <remind.unmodified.content.delay>30</remind.unmodified.content.delay>
+  <remind.content.validation.delay>10</remind.content.validation.delay>
+  <remind.content.enabled>false</remind.content.enabled>
+  <alerts.scheduler.hour>02:00</alerts.scheduler.hour>
+  <!-- plugin.cms:PLUGINS_CMS_GLOBAL_CONTENT_CONSISTENCY_CONFIG_GROUP -->
+  <consistency.scheduler.enabled>true</consistency.scheduler.enabled>
+  <consistency.scheduler.hour>02:00</consistency.scheduler.hour>
+  <!-- plugin.web:PLUGINS_WEB_COPY_PASTE_EXTERNAL_CONTENT_CONFIG_GROUP -->
+  <store.external.files>false</store.external.files>
+  <store.files.extensions>pdf,zip,gz,bz2,7z,rar,doc,docx,xls,xlsx,ppt,pptx,odt</store.files.extensions>
+  <!-- plugin.cms:CONTENT_ARCHIVE_CONFIG_GROUP -->
+  <archive.scheduler.hour>01:00</archive.scheduler.hour>
+  <archive.scheduler.enabled>false</archive.scheduler.enabled>
+  <archive.scheduler.reminder.delay>7</archive.scheduler.reminder.delay>
+  <!-- plugin.web:PLUGINS_WEB_RESOURCES_FOLDER_GROUP -->
+  <resources.shared.folder>false</resources.shared.folder>
+
+  <!--+
+      | plugin.newsletter:PLUGINS_NEWSLETTER_NEWSLETTER_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.newsletter:PLUGINS_NEWSLETTER_DATASOURCE_CONFIG_GROUP -->
+  <plugins.newsletters.datasource>SQL-default-datasource</plugins.newsletters.datasource>
+  <!-- plugin.newsletter:PLUGINS_NEWSLETTER_AUTOMATIC_SCHEDULING_CONFIG_GROUP -->
+  <newsletter.automatic.scheduler.hour>02:00</newsletter.automatic.scheduler.hour>
+
+  <!--+
+      | plugin.core:PLUGINS_CORE_SYSTEM_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.core:PLUGINS_CORE_DEBUG_GROUP -->
+  <runtime.mode.dev>false</runtime.mode.dev>
+  <!-- plugin.admin:PLUGINS_ADMIN_SYSTEM_ALERT_CONFIG_GROUP -->
+  <runtime.system.alerts.enable>false</runtime.system.alerts.enable>
+  <runtime.system.alerts.diskspace.threshold>2048</runtime.system.alerts.diskspace.threshold>
+  <runtime.system.alerts.threads.threshold>300</runtime.system.alerts.threads.threshold>
+  <!-- plugin.core:PLUGINS_CORE_LOGGING_GROUP -->
+  <runtime.log.abnormal.time>false</runtime.log.abnormal.time>
+  <!-- plugin.core:PLUGINS_CORE_UPLOAD_CONFIG_GROUP -->
+  <runtime.upload.max-size>10485760</runtime.upload.max-size>
+  <!-- plugin.core:PLUGINS_CORE_SYSTEM_CONFIG_DATASOURCE_GROUP -->
+  <runtime.assignments.groups>SQL-default-datasource</runtime.assignments.groups>
+  <runtime.assignments.userpopulations>SQL-default-datasource</runtime.assignments.userpopulations>
+  <runtime.usersprefs.datasource>SQL-default-datasource</runtime.usersprefs.datasource>
+  <runtime.assignments.authenticationtokens>SQL-default-datasource</runtime.assignments.authenticationtokens>
+  <runtime.scheduler.datasource>SQL-default-datasource</runtime.scheduler.datasource>
+  <runtime.rights.datasource>SQL-default-datasource</runtime.rights.datasource>
+  <!-- plugin.core:PLUGINS_CORE_PRIVACY_CONFIG_GROUP -->
+  <runtime.ametys.public>false</runtime.ametys.public>
+
+  <!--+
+      | plugin.flipbook:PLUGINS_FLIPBOOK_CATEGORY
+      +-->
+
+  <!-- plugin.flipbook:PLUGINS_FLIPBOOK_CONVERSION_GROUP -->
+  <pdf.to.png.commandline>pdftoppm -png $$PDF$$ page</pdf.to.png.commandline>
+  <flipbook.convertor>org.ametys.plugins.flipbook.convertor.Pdfbox</flipbook.convertor>
+
+  <!--+
+      | plugin.cms:PLUGINS_CMS_SOLR_CONFIG_SOLR_CATEGORY
+      +-->
+
+  <!-- plugin.cms:PLUGINS_CMS_SOLR_CONFIG_RELOAD_CACHE_GROUP -->
+  <cms.solr.reload.cache.scheduler.hour>03:00</cms.solr.reload.cache.scheduler.hour>
+  <cms.solr.reload.cache.scheduler.enabled>true</cms.solr.reload.cache.scheduler.enabled>
+  <!-- plugin.cms:PLUGINS_CMS_SOLR_CONFIG_SERVER_GROUP -->
+  <cms.solr.core.ametys.internal.url/>
+  <cms.solr.core.prefix>ametys-</cms.solr.core.prefix>
+  <cms.solr.core.allowedips/>
+  <cms.solr.socket.timeout>0</cms.solr.socket.timeout>
+  <cms.solr.core.url>http://localhost:8983/solr</cms.solr.core.url>
+
+  <!--+
+      | plugin.survey:PLUGINS_SURVEY_DATASOURCE_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.survey:PLUGINS_SURVEY_DATASOURCE_CONFIG_GROUP -->
+  <plugins.survey.datasource>SQL-default-datasource</plugins.survey.datasource>
+
+  <!--+
+      | plugin.core:PLUGINS_CORE_APPLICATIONS_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.core:PLUGINS_CORE_GOOGLE_API_KEY_CONFIG_GROUP -->
+  <runtime.google-api-key/>
+
+  <!--+
+      | plugin.web:PLUGINS_WEB_CONFIG_FRONT_CATEGORY
+      +-->
+
+  <!-- plugin.web:PLUGINS_WEB_CONFIG_FRONT_GROUP -->
+  <org.ametys.web.front.ip/>
+  <web.invalidate.focache.scheduler.enabled>false</web.invalidate.focache.scheduler.enabled>
+  <org.ametys.web.front.url/>
+
+  <!--+
+      | plugin.forms:PLUGINS_FORMS_FORMS_CATEGORY
+      +-->
+
+  <!-- plugin.forms:PLUGINS_FORMS_ANTIVIRUS_GROUP -->
+  <plugins.forms.antivirus.command>clamscan</plugins.forms.antivirus.command>
+  <plugins.forms.antivirus.activated>false</plugins.forms.antivirus.activated>
+  <!-- plugin.forms:PLUGINS_FORMS_DATASOURCE_GROUP -->
+  <plugins.forms.datasource>SQL-ku8d8aur</plugins.forms.datasource>
+
+  <!--+
+      | plugin.core-ui:PLUGINS_CORE_UI_HELP_CATEGORY
+      +-->
+
+  <!-- plugin.core-ui:PLUGINS_CORE_UI_HELP_GROUP -->
+  <online.help.index.url/>
+  <online.help.search.url/>
+
+  <!--+
+      | plugin.server-directory:PLUGINS_SERVER_DIRECTORY_SERVICE_CATEGORY
+      +-->
+
+  <!-- plugin.server-directory:PLUGINS_SERVER_DIRECTORY_SERVICE_GROUP -->
+  <org.ametys.plugins.server.directory.authorized/>
+
+  <!--+
+      | plugin.core:PLUGINS_CORE_CAPTCHA_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.core:PLUGINS_CORE_CAPTCHA_CONFIG_GROUP -->
+  <runtime.captcha.recaptcha.publickey/>
+  <runtime.captcha.type>jcaptcha</runtime.captcha.type>
+  <runtime.captcha.jcaptcha.clean.period>20</runtime.captcha.jcaptcha.clean.period>
+  <runtime.captcha.recaptcha.secretkey/>
+
+  <!--+
+      | plugin.core:PLUGINS_CORE_MAIL_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.core:PLUGINS_CORE_MAIL_CONFIG_GROUP -->
+  <smtp.mail.user/>
+  <smtp.mail.port>25</smtp.mail.port>
+  <smtp.mail.password/>
+  <smtp.mail.security.protocol>none</smtp.mail.security.protocol>
+  <smtp.mail.host>Email Server</smtp.mail.host>
+  <!-- plugin.core:PLUGINS_CORE_MAIL_CONFIG_ANYCONNECTED_USER_RETURN_ALL_GROUP -->
+  <runtime.mail.massive.sending>false</runtime.mail.massive.sending>
+  <!-- plugin.core:PLUGINS_CORE_MAIL_CONFIG_ADDRESS_GROUP -->
+  <smtp.mail.sysadminto/>
+  <smtp.mail.from>sender@ametys.org</smtp.mail.from>
+
+  <!--+
+      | plugin.cms:PLUGINS_CMS_CONFIG_CATEGORY_CMS
+      +-->
+
+  <!-- plugin.cms:PLUGINS_CMS_CONFIG_CATEGORY_CMS_PARAMS_GROUP -->
+  <cms.url>http://tomcat9-java11.demo.jelastic.com:8080/cms</cms.url>
+
+  <!--+
+      | plugin.web:PLUGINS_WEB_USER_SIGNUP_DATASOURCE_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.web:PLUGINS_WEB_USER_SIGNUP_DATASOURCE_CONFIG_GROUP -->
+  <web.usersignup.datasource>SQL-default-datasource</web.usersignup.datasource>
+
+  <!--+
+      | plugin.web:PLUGINS_WEB_SEO_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.web:PLUGINS_WEB_SITEMAP_GROUP -->
+  <robots.sitemap.ping.cron.expression>01:00</robots.sitemap.ping.cron.expression>
+
+  <!--+
+      | plugin.repositoryapp:PLUGINS_REPOSITORYAPP_CONFIG_CATEGORY
+      +-->
+
+  <!-- plugin.repositoryapp:PLUGINS_REPOSITORYAPP_CONFIG_GROUP -->
+  <repository.default.sort>document</repository.default.sort>
+  <!-- plugin.repository:PLUGINS_REPOSITORY_CONFIG_DATASOURCE_GROUP -->
+  <org.ametys.plugins.repository.datasource>SQL-default-datasource</org.ametys.plugins.repository.datasource>
+  <org.ametys.plugins.repository.default-datasource>true</org.ametys.plugins.repository.default-datasource>
+  <!-- plugin.repository:PLUGINS_REPOSITORY_CONFIG_JCR -->
+  <org.ametys.plugins.repository.cache>16777216</org.ametys.plugins.repository.cache>
+</config>
