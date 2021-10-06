@@ -6,7 +6,7 @@ categories:
   - apps/cms
   - apps/content-management
   
-baseUrl: https://raw.githubusercontent.com/jelastic-jps/ametys/master/
+baseUrl: https://raw.githubusercontent.com/lazarenkoalexey/ametys/JE-60121/
 
 startPage: cms/
 homepage: 'http://www.ametys.org/'
@@ -15,7 +15,8 @@ description: Ametys is a free and open source professional web content managemen
 
 globals:
   DB_ADMIN_PASS: '${fn.password}'
-
+  CONFIG_PATH: /opt/tomcat/webapps/ROOT/WEB-INF/config/
+  
 engine: java11
 nodes:
   - cloudlets: 10
@@ -35,6 +36,7 @@ actions:
       context: ROOT
       archive: https://download:2021S1@releases.ametys.org/releases/org.ametys.templates/demo/4.3.x/4.3.11/zips/ametys-demo-4.3.11.zip
       name: ametys-4.3.11.zip
+
   dbActions:
     - prepareSqlDatabase:
         nodeGroup: sqldb
@@ -49,17 +51,16 @@ actions:
   replaceConfigs:
     cmd [cp]: |-
       ROOT="/opt/tomcat/webapps/ROOT/"
-      CONFIG_PATH="${ROOT}/WEB-INF/config"
-      
       mv ${ROOT}/cms/* ${ROOT}
-      curl -fsSL "${baseUrl}configs/config.xml" -o ${CONFIG_PATH}/config.xml
-      sed -i 's|<cms.url>http://.*:8080</cms.url>|<cms.url>http://${env.url}:8080</cms.url>|g' ${CONFIG_PATH}/config.xml
-      curl -fsSL "${baseUrl}configs/datasources-sql.xml" -o ${CONFIG_PATH}/datasources-sql.xml
-      sed -i 's|{DB_HOST}|${nodes.sqldb.address}|g' ${CONFIG_PATH}/datasources-sql.xml
+      mkdir -p ${globals.CONFIG_PATH}
+      curl -fsSL "${baseUrl}configs/config.xml" -o ${globals.CONFIG_PATH}/config.xml
+      sed -i 's|<cms.url>http://.*:8080</cms.url>|<cms.url>http://${env.url}:8080</cms.url>|g' ${globals.CONFIG_PATH}/config.xml
+      curl -fsSL "${baseUrl}configs/datasources-sql.xml" -o ${globals.CONFIG_PATH}/datasources-sql.xml
+      sed -i 's|{DB_HOST}|${nodes.sqldb.address}|g' ${globals.CONFIG_PATH}/datasources-sql.xml
       
 success: |-
   Below you will find your admin panel link, username and password.  
-  Admin panel URL: [${env.protocol}://${env.domain}/cms/_admin/](${env.protocol}://${env.domain}/cms/_admin/)
-  Admin name: admin  
-  Password: admin  
-  To add custom domain name for your Ametys installation follow the steps described in our [documentation](http://docs.jelastic.com/custom-domains)
+  Admin panel URL: [${env.protocol}://${env.domain}/cms/_admin/](${env.protocol}://${env.domain}/cms/_admin/)   
+  Admin name: admin   
+  Password: admin   
+  To add custom domain name for your Ametys installation follow the steps described in our [documentation](http://docs.jelastic.com/custom-domains)  
