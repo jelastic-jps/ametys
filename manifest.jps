@@ -16,7 +16,10 @@ description: Ametys is a free and open source professional web content managemen
 globals:
   DB_ADMIN_PASS: '${fn.password}'
   CONFIG_PATH: /opt/tomcat/webapps/ROOT/WEB-INF/config/
-  
+
+mixins:
+- configs/vers.yaml
+
 engine: java11
 nodes:
   - cloudlets: 10
@@ -34,8 +37,8 @@ actions:
   deployApp:
     deploy:
       context: ROOT
-      archive: https://download:2021S1@releases.ametys.org/releases/org.ametys.templates/demo/4.3.x/4.3.11/zips/ametys-demo-4.3.11.zip
-      name: ametys-4.3.11.zip
+      archive: https://download:2021S1@releases.ametys.org/releases/org.ametys.templates/demo/${globals.major_version_ametys}.x/${globals.version_ametys}/zips/ametys-demo-${globals.version_ametys}.zip
+      name: ametys-${globals.version_ametys}.zip
 
   dbActions:
     - prepareSqlDatabase:
