@@ -193,7 +193,7 @@
       +-->
 
   <!-- plugin.cms:PLUGINS_CMS_CONFIG_CATEGORY_CMS_PARAMS_GROUP -->
-  <cms.url>http://tomcat9-java11.demo.jelastic.com:8080/cms</cms.url>
+  <cms.url>SITE_URL</cms.url>
 
   <!--+
       | plugin.web:PLUGINS_WEB_USER_SIGNUP_DATASOURCE_CONFIG_CATEGORY

@@ -6,7 +6,7 @@ categories:
   - apps/cms
   - apps/content-management
   
-baseUrl: https://raw.githubusercontent.com/jelastic-jps/ametys/master/
+baseUrl: https://raw.githubusercontent.com/dimkadt/ametys/master/
 
 startPage: cms/
 homepage: 'http://www.ametys.org/'
@@ -15,12 +15,12 @@ description: Ametys is a free and open source professional web content managemen
 
 globals:
   DB_ADMIN_PASS: '${fn.password}'
-  CONFIG_PATH: /opt/tomcat/webapps/ROOT/WEB-INF/config/
+  CONFIG_PATH: /opt/tomcat/webapps/ROOT/WEB-INF/data/config/
 
 mixins:
 - configs/vers.yaml
 
-engine: java11
+engine: openjdk11
 nodes:
   - cloudlets: 10
     nodeType: tomcat9
@@ -41,29 +41,29 @@ actions:
       name: ametys-${globals.version_ametys}.zip
 
   dbActions:
-    - prepareSqlDatabase:
-        nodeGroup: sqldb
-        loginCredentials:
-          user: root
-          password: '${nodes.sqldb.password}'
-        newDatabaseName: ametys
-        newDatabaseUser:
-          name: ametys
-          password: '${globals.DB_ADMIN_PASS}'
-          
+    cmd [sqldb]:
+        mysql -u root -p'${nodes.sqldb.password}' -e "create database ametys;
+        create user ametys identified by '${globals.DB_ADMIN_PASS}'; 
+        grant all privileges on ametys.* to 'ametys'; FLUSH PRIVILEGES;"
+
   replaceConfigs:
     cmd [cp]: |-
       ROOT="/opt/tomcat/webapps/ROOT/"
       mv ${ROOT}/cms/* ${ROOT}
       mkdir -p ${globals.CONFIG_PATH}
       curl -fsSL "${baseUrl}configs/config.xml" -o ${globals.CONFIG_PATH}/config.xml
-      sed -i 's|<cms.url>http://.*:8080</cms.url>|<cms.url>http://${env.url}:8080</cms.url>|g' ${globals.CONFIG_PATH}/config.xml
+      sed -i 's|<cms.url>SITE_URL</cms.url>|<cms.url>${env.url}:8080/cms</cms.url>|g' ${globals.CONFIG_PATH}/config.xml
       curl -fsSL "${baseUrl}configs/datasources-sql.xml" -o ${globals.CONFIG_PATH}/datasources-sql.xml
       sed -i 's|{DB_HOST}|${nodes.sqldb.address}|g' ${globals.CONFIG_PATH}/datasources-sql.xml
-      
+      sed -i 's|{DB_PASSWORD}|${globals.DB_ADMIN_PASS}|g' ${globals.CONFIG_PATH}/datasources-sql.xml
+      curl -fsSL "${baseUrl}libs/mysql-connector-j-8.4.0.jar" -o ${globals.CONFIG_PATH}../../lib/mysql-connector-j-8.4.0.jar
+      cp ${globals.CONFIG_PATH}../../lib/mysql-connector-j-8.4.0.jar ${globals.CONFIG_PATH}../../../site/WEB-INF/lib/mysql-connector-j-8.4.0.jar
+      rm -f ${globals.CONFIG_PATH}../../lib/mysql-connector-java-5.1.47.jar ${globals.CONFIG_PATH}../../../site/WEB-INF/lib/mysql-connector-java-5.1.47.jar
+      echo  -Djdk.attach.allowAttachSelf >> /opt/tomcat/conf/variables.conf
+
 success: |-
   Below you will find your admin panel link, username and password.  
-  Admin panel URL: [${env.protocol}://${env.domain}/cms/_admin/](${env.protocol}://${env.domain}/cms/_admin/)   
+  Admin panel URL: [${env.protocol}://${env.domain}/_admin/](${env.protocol}://${env.domain}/_admin/)
   Admin name: admin   
   Password: admin   
-  To add custom domain name for your Ametys installation follow the steps described in our [documentation](http://docs.jelastic.com/custom-domains)  
+  To add custom domain name for your Ametys installation follow the steps described in our [documentation](http://docs.jelastic.com/custom-domains)
