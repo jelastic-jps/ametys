@@ -6,7 +6,7 @@ categories:
   - apps/cms
   - apps/content-management
   
-baseUrl: https://raw.githubusercontent.com/dimkadt/ametys/master/
+baseUrl: https://raw.githubusercontent.com/jelastic-jps/ametys/master/
 
 startPage: cms/
 homepage: 'http://www.ametys.org/'
