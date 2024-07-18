@@ -5,8 +5,8 @@ This repository provides [Ametys](http://www.ametys.org/) add-on for Jelastic Pl
 **Ametys** is a free and open source professional web content management system (WCMS).
 
 **Type of nodes this add-on can be applied to**:
-- tomcat7
-- mysql5
+- tomcat9
+- mysql8
 
 ### What it can be used for?
 Ametys is a free and open source professional web content management system (WCMS), which combines content richness with a user-friendly interf.
