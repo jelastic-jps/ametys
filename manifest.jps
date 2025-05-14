@@ -20,6 +20,9 @@ globals:
 mixins:
 - configs/vers.yaml
 
+ssl: true
+skipNodeEmails: true
+
 engine: openjdk11
 nodes:
   - cloudlets: 10
